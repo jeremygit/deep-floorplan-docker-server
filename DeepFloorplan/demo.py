@@ -58,8 +58,8 @@ def main(args):
 					tf.local_variables_initializer()))
 
 		# restore pretrained model
-		saver = tf.train.import_meta_graph('./Deepfloorplan/pretrained/pretrained_r3d.meta')
-		saver.restore(sess, './Deepfloorplan/pretrained/pretrained_r3d')
+		saver = tf.train.import_meta_graph('./DeepFloorplan/pretrained/pretrained_r3d.meta')
+		saver.restore(sess, './DeepFloorplan/pretrained/pretrained_r3d')
 
 		# get default graph
 		graph = tf.get_default_graph()
