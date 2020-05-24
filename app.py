@@ -15,8 +15,10 @@ app.debug = True
 def index():
     # request.json
     # return jsonsify({'key': 'value'})
-    p = Processing()
-    return 'hello' + p.hello_check()
+    # Convert
+    p = Processing('./DeepFloorplan/demo/45719584.jpg')
+    result = p.process_json_array()
+    return jsonify({'data': result})
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0')

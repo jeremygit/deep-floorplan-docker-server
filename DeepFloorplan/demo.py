@@ -6,12 +6,6 @@ import tensorflow as tf
 from scipy.misc import imread, imsave, imresize
 # from matplotlib import pyplot as plt
 
-import socket
-import json
-SOCKET = '/tmp/processing.sock'
-sock = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
-sock.connect(SOCKET)
-
 os.environ['CUDA_VISIBLE_DEVICES'] = '0'
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
@@ -46,6 +40,11 @@ def ind2rgb(ind_im, color_map=floorplan_map):
 	return rgb_im
 
 def main(args):
+	# if isinstance(args, argparse.Namespace):
+	# 	args = vars(args)
+	
+
+	print('Run Main')
 	# load input
 	im = imread(args.im_path, mode='RGB')
 	im = im.astype(np.float32)
@@ -59,8 +58,8 @@ def main(args):
 					tf.local_variables_initializer()))
 
 		# restore pretrained model
-		saver = tf.train.import_meta_graph('./pretrained/pretrained_r3d.meta')
-		saver.restore(sess, './pretrained/pretrained_r3d')
+		saver = tf.train.import_meta_graph('./Deepfloorplan/pretrained/pretrained_r3d.meta')
+		saver.restore(sess, './Deepfloorplan/pretrained/pretrained_r3d')
 
 		# get default graph
 		graph = tf.get_default_graph()
@@ -81,8 +80,7 @@ def main(args):
 		floorplan[room_boundary==2] = 10
 		floorplan_rgb = ind2rgb(floorplan)
 
-		sock.send(floorplan_rgb)
-		sock.close()
+		return floorplan_rgb
 
 		# plot results
 		# plt.subplot(121)
