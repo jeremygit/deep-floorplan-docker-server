@@ -6,7 +6,6 @@ class Processing:
     path = ''
     def __init__(self, path):
         self.path = path
-        pass
 
     def process_json_array(self):
         flrpln = demo.main(SimpleNamespace(im_path=self.path))
