@@ -20,9 +20,9 @@ RUN python --version
 # Fixed matplotlib issue
 RUN sudo apt-get install python-subprocess32 -y
 
-WORKDIR /app/DeepFloorplan-master
+WORKDIR /app/DeepFloorplan
 
-COPY ./DeepFloorplan-master/requirements.txt /app/DeepFloorplan-master
+COPY ./DeepFloorplan/requirements.txt /app/DeepFloorplan
 
 RUN pip install -r requirements.txt
 
