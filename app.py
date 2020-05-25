@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 import pymongo
 from processing import Processing
+import os
 
 app = Flask(__name__)
 app.debug = True
@@ -20,5 +21,9 @@ def index():
     result = p.process_json_array()
     return jsonify({'data': result})
 
+@app.route('/health')
+def health():
+    return 'running'
+
 if __name__ == '__main__':
-    app.run(host='0.0.0.0')
+    app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
